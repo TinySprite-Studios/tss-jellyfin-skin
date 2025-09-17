@@ -1,0 +1,11 @@
+[
+  {
+    "name": "TSS Theme",
+    "author": "TinySprite",
+    "version": "1.0.0",
+    "target": "10.8+",
+    "description": "TinySprite Studios Theme for Jellyfin.",
+    "preview": "https://raw.githubusercontent.com/TinySprite-Studios/tss-jellyfin-skin/main/assets/preview.jpg",
+    "css": "https://raw.githubusercontent.com/TinySprite-Studios/tss-jellyfin-skin/main/dist/tss.css"
+  }
+]

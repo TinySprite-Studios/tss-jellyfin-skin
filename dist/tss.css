@@ -1,0 +1,124 @@
+/* =========================================================
+   TinySprite Studios Theme for Jellyfin
+   Works with stock Jellyfin + Skin Manager. 
+   Author: TinySprite
+   ========================================================= */
+
+/* 0) RESET / BASE */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* 1) LOGO: hide built-in SVG and inject our image */
+.siteHeader .headerLogoLink svg,
+.headerLogo svg,
+.logoIcon svg { display: none !important; }
+
+.siteHeader .headerLogoLink,
+.headerLogo,
+.logoIcon {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.siteHeader .headerLogoLink::before,
+.headerLogo::before,
+.logoIcon::before {
+  content: "" !important;
+  display: inline-block !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: url("https://raw.githubusercontent.com/TinySprite-Studios/tss-jellyfin-skin/main/assets/tss_red_80.png") center/contain no-repeat !important;
+  margin-right: 8px !important;
+}
+
+/* 2) APP NAME OVERRIDE (optional) */
+.appName, .headerTitle, .pageTitle {
+  visibility: hidden !important;
+  position: relative !important;
+}
+.appName::after, .headerTitle::after, .pageTitle::after {
+  content: "TinySprite Streaming" !important;
+  visibility: visible !important;
+  position: absolute !important;
+  left: 0 !important; top: 0 !important;
+}
+
+/* 3) THEME VARIABLES
+   Default (fallback) + Page-scoped variants:
+   - Home  -> Red Glow
+   - Detail-> Blue Glow
+*/
+:root {
+  --bg: #0A0A0A;
+  --panel: #1C1C1C;
+  --text: #FFFFFF;
+  --accent: #A60000;
+  --glow: #FF1A1A;
+}
+
+.homePage {
+  --bg: #0A0A0A;
+  --panel: #1C1C1C;
+  --text: #FFFFFF;
+  --accent: #A60000;
+  --glow: #FF1A1A; /* Neon Red */
+}
+
+.detailPage, .itemDetailPage {
+  --bg: #0A0F1F;
+  --panel: #1C1F26;
+  --text: #FFFFFF;
+  --accent: #005B96;
+  --glow: #00E5FF; /* Neon Blue */
+}
+
+/* 4) APPLY VARS */
+html, body, .mainDrawer, .layout-desktop,
+.backgroundContainer, .pageContainer {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+}
+.card, .paperList, .detailPageWrapper, .dialog,
+.emby-select-withcolor, .emby-input, .emby-textarea {
+  background-color: var(--panel) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.siteHeader, .headerTabs, .skinHeader, .mainDrawer {
+  background-color: var(--panel) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+a, .button-link, .emby-button.linkbutton, .listItemBodyText a { color: var(--text) !important; }
+a:hover { color: var(--glow) !important; }
+
+/* 5) GLOW UNDER tabs/buttons/cards */
+.headerTabs .emby-tab { position: relative !important; background: transparent !important; box-shadow: none !important; }
+.headerTabs .emby-tab::after {
+  content: ""; position: absolute !important;
+  left: 12px; right: 12px; bottom: -2px; height: 3px;
+  background: var(--accent) !important; border-radius: 3px; opacity: 0;
+  transition: opacity .15s ease;
+  box-shadow: 0 8px 16px -4px var(--glow) !important; /* downwards glow */
+}
+.headerTabs .emby-tab:hover::after,
+.headerTabs .emby-tab.emby-tab-active::after { opacity: 1; }
+
+.emby-button, .button-flat, .paper-icon-button-light { box-shadow: none !important; }
+.emby-button:hover, .button-flat:hover, .paper-icon-button-light:hover {
+  box-shadow: 0 10px 18px -6px var(--glow) !important;
+  transform: translateY(-1px) !important;
+}
+.visualCardBox:hover, .itemCard:hover, .cardBox:hover {
+  box-shadow: 0 14px 22px -10px var(--glow) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* 6) PROGRESS / SLIDERS / MISC */
+.mdl-slider__background-lower, .progressbarForeground { background-color: var(--glow) !important; }
+.searchInput, .emby-input, .emby-textarea { background: #111 !important; color: var(--text) !important; }
+.snackbar { background: var(--panel) !important; color: var(--text) !important; }
+
+/* 7) LOGIN PAGE TITLE */
+.loginPage .pageTitle { font-size: 0 !important; }
+.loginPage .pageTitle::after { content: "TinySprite Streaming" !important; font-size: 28px !important; }
