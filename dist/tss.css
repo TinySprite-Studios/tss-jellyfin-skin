@@ -71,6 +71,78 @@
   --glow: #00E5FF; /* Neon Blue */
 }
 
+/* ==============================
+   LOGIN PAGE – TSS Studios Style
+   ============================== */
+
+/* Full page background */
+.loginPage {
+  background: url("https://cdn.jsdelivr.net/gh/TinySprite-Studios/tss-jellyfin-skin@main/assets/tsstudios_banner.png") 
+              no-repeat center center fixed !important;
+  background-size: cover !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 100vh !important;
+}
+
+/* Centered login form container */
+.loginPage .pageContainer {
+  background: rgba(10, 10, 10, 0.8) !important; /* semi-transparent black */
+  border-radius: 12px !important;
+  padding: 40px 50px !important;
+  box-shadow: 0 0 30px var(--glow) !important;
+  max-width: 400px !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+/* Logo at the top of the form */
+.loginPage .pageContainer::before {
+  content: "" !important;
+  display: block !important;
+  width: 120px !important;
+  height: 120px !important;
+  margin: 0 auto 20px auto !important;
+  background: url("https://cdn.jsdelivr.net/gh/TinySprite-Studios/tss-jellyfin-skin@main/assets/tss_red_80.png") 
+              no-repeat center center / contain !important;
+}
+
+/* Input styling */
+.loginPage .emby-input {
+  background: #111 !important;
+  border: 1px solid var(--accent) !important;
+  border-radius: 6px !important;
+  padding: 10px 14px !important;
+  margin-bottom: 16px !important;
+  color: var(--text) !important;
+  font-size: 15px !important;
+}
+
+/* Buttons */
+.loginPage .emby-button {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 12px 18px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  box-shadow: 0 6px 20px -4px var(--glow) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+.loginPage .emby-button:hover {
+  background: var(--glow) !important;
+  box-shadow: 0 10px 25px -5px var(--glow) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Hide the default page title */
+.loginPage .pageTitle {
+  display: none !important;
+}
+
+
 /* 4) APPLY VARS */
 html, body, .mainDrawer, .layout-desktop,
 .backgroundContainer, .pageContainer {
