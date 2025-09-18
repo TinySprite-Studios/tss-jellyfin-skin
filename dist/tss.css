@@ -76,9 +76,17 @@
    ============================== */
 
 /* Full page background */
+.backdropImage {
+  display: none;
+}
+
+.backgroundContainer {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url('https://cdn.jsdelivr.net/gh/TinySprite-Studios/tss-jellyfin-skin@main/assets/tsstudios_banner.png');
+  filter: blur(10px);
+  background-size: cover;
+}
 .loginPage {
-  background: url("https://cdn.jsdelivr.net/gh/TinySprite-Studios/tss-jellyfin-skin@main/assets/tsstudios_banner.png") 
-              no-repeat center center fixed !important;
   background-size: cover !important;
   display: flex !important;
   justify-content: center !important;
