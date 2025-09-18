@@ -193,4 +193,4 @@ a:hover { color: var(--glow) !important; }
 
 /* 7) LOGIN PAGE TITLE */
 .loginPage .pageTitle { font-size: 0 !important; }
-.loginPage .pageTitle::after { content: "TinySprite Streaming" !important; font-size: 28px !important; }
+.loginPage .pageTitle::after { content: "TSS" !important; font-size: 28px !important; }
