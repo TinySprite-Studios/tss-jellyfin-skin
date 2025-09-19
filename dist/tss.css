@@ -1,117 +1,182 @@
 /* =========================================================
    TinySprite Studios Theme for Jellyfin
-   Works with stock Jellyfin + Skin Manager. 
+   Works with stock Jellyfin + Skin Manager.
    Author: TinySprite
    ========================================================= */
 
-/* 0) RESET / BASE */
+/* -------------------------
+   0) Variables (palettes)
+   ------------------------- */
+:root {
+  /* Red theme */
+  --red-bg:     #0A0A0A;
+  --red-panel:  #1C1C1C;
+  --red-accent: #A60000;
+  --red-glow:   #FF1A1A;
+
+  /* Blue theme */
+  --blue-bg:     #0A0F1F;
+  --blue-panel:  #1C1F26;
+  --blue-accent: #005B96;
+  --blue-glow:   #00E5FF;
+
+  --text: #FFFFFF;
+}
+
+/* Page-scoped variables */
+.homePage {
+  --bg: var(--red-bg);
+  --panel: var(--red-panel);
+  --accent: var(--red-accent);
+  --glow: var(--red-glow);
+  --text: #FFFFFF;
+}
+.detailPage, .itemDetailPage {
+  --bg: var(--blue-bg);
+  --panel: var(--blue-panel);
+  --accent: var(--blue-accent);
+  --glow: var(--blue-glow);
+  --text: #FFFFFF;
+}
+/* Fallback if a page has no class */
+:root {
+  --bg: var(--red-bg);
+  --panel: var(--red-panel);
+  --accent: var(--red-accent);
+  --glow: var(--red-glow);
+}
+
+/* -------------------------
+   1) Base reset & layout
+   ------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 
-/* 1) LOGO: hide built-in SVG and inject our image */
-.siteHeader .headerLogoLink svg,
-.headerLogo svg,
-.logoIcon svg { display: none !important; }
-
-.siteHeader .headerLogoLink,
-.headerLogo,
-.logoIcon {
-  display: inline-flex !important;
-  align-items: center !important;
+html, body, .mainDrawer, .layout-desktop,
+.backgroundContainer, .pageContainer {
+  background: var(--bg) !important;
+  color: var(--text) !important;
 }
 
-.siteHeader .headerLogoLink::before,
-.headerLogo::before,
-.logoIcon::before {
-  content: "" !important;
-  display: inline-block !important;
-  width: 40px !important;
-  height: 40px !important;
-  background: url("https://raw.githubusercontent.com/TinySprite-Studios/tss-jellyfin-skin/main/assets/tss_red_80.png") center/contain no-repeat !important;
-  margin-right: 8px !important;
+/* Panels, inputs, dialogs */
+.card, .paperList, .detailPageWrapper, .dialog,
+.emby-select-withcolor, .emby-input, .emby-textarea {
+  background-color: var(--panel) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
 }
 
-/* 2) APP NAME OVERRIDE (optional) */
-.appName, .headerTitle, .pageTitle {
-  visibility: hidden !important;
-  position: relative !important;
+/* Header / sidebar */
+.siteHeader, .headerTabs, .skinHeader, .mainDrawer {
+  background-color: var(--panel) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
 }
+
+/* Links / accent */
+a, .button-link, .emby-button.linkbutton, .listItemBodyText a { color: var(--text) !important; }
+a:hover { color: var(--glow) !important; }
+
+/* Buttons & glows */
+.emby-button, .button-flat, .paper-icon-button-light { box-shadow: none !important; }
+.emby-button:hover, .button-flat:hover, .paper-icon-button-light:hover {
+  box-shadow: 0 10px 18px -6px var(--glow) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Cards hover glow DOWNWARDS */
+.visualCardBox, .itemCard, .cardBox { transition: box-shadow .15s ease, transform .15s ease !important; }
+.visualCardBox:hover, .itemCard:hover, .cardBox:hover {
+  box-shadow: 0 14px 22px -10px var(--glow) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Tabs underline glow (under, not above) */
+.headerTabs .emby-tab { position: relative !important; background: transparent !important; box-shadow: none !important; }
+.headerTabs .emby-tab::after {
+  content: ""; position: absolute !important;
+  left: 12px; right: 12px; bottom: -2px; height: 3px;
+  background: var(--accent) !important; border-radius: 3px; opacity: 0;
+  transition: opacity .15s ease;
+  box-shadow: 0 8px 16px -4px var(--glow) !important;
+}
+.headerTabs .emby-tab:hover::after,
+.headerTabs .emby-tab.emby-tab-active::after { opacity: 1; }
+
+/* Progress / sliders / misc */
+.mdl-slider__background-lower, .progressbarForeground { background-color: var(--glow) !important; }
+.searchInput, .emby-input, .emby-textarea { background: #111 !important; color: var(--text) !important; }
+.snackbar { background: var(--panel) !important; color: var(--text) !important; }
+
+/* -------------------------
+   2) Header logo + title
+   ------------------------- */
+/* Hide built-in SVG */
+.siteHeader .headerLogoLink svg, .headerLogo svg, .logoIcon svg { display: none !important; }
+/* Keep logo + title aligned */
+.siteHeader .headerLogoLink, .headerLogo, .logoIcon { display: inline-flex !important; align-items: center !important; }
+/* Inject TSS logo (CDN) */
+.siteHeader .headerLogoLink::before, .headerLogo::before, .logoIcon::before {
+  content: ""; width: 40px; height: 40px; margin-right: 8px;
+  background: url("https://raw.githubusercontent.com/TinySprite-Studios/tss-jellyfin-skin/main/assets/tss_red_80.png")
+              center/contain no-repeat !important;
+}
+/* Optional: force header text */
+.appName, .headerTitle, .pageTitle { visibility: hidden !important; position: relative !important; }
 .appName::after, .headerTitle::after, .pageTitle::after {
-  content: "TSS" !important;
-  visibility: visible !important;
-  position: absolute !important;
-  left: 0 !important; top: 0 !important;
+  content: "TSS"; visibility: visible; position: absolute; left: 0; top: 0;
 }
 
-/* 3) THEME VARIABLES
-   Default (fallback) + Page-scoped variants:
-   - Home  -> Red Glow
-   - Detail-> Blue Glow
-*/
-:root {
-  --bg: #0A0A0A;
-  --panel: #1C1C1C;
-  --text: #FFFFFF;
-  --accent: #A60000;
-  --glow: #FF1A1A;
+/* ===== Settings menu logo override ===== */
+.MultilistItemIcon-root img {
+  content: url("https://raw.githubusercontent.com/TinySprite-Studios/tss-jellyfin-skin/main/assets/tss_blue_40.png") !important;
+  width: 24px !important;   /* adjust to match default size */
+  height: auto !important;
 }
 
-.homePage {
-  --bg: #0A0A0A;
-  --panel: #1C1C1C;
-  --text: #FFFFFF;
-  --accent: #A60000;
-  --glow: #FF1A1A; /* Neon Red */
+/* Only target Settings menu icon */
+a[href*="dashboard/settings"] .MultilistItemIcon-root img {
+  content: url("https://raw.githubusercontent.com/TinySprite-Studios/tss-jellyfin-skin/main/assets/tss_blue_40.png") !important;
 }
 
-.detailPage, .itemDetailPage {
-  --bg: #0A0F1F;
-  --panel: #1C1F26;
-  --text: #FFFFFF;
-  --accent: #005B96;
-  --glow: #00E5FF; /* Neon Blue */
-}
 
-/* ==============================
-   LOGIN PAGE – TSS Studios Style
-   ============================== */
-
-/* Full page background */
-#loginPage {
-  background: url('https://i.ytimg.com/vi/avCWDDox1nE/maxresdefault.jpg');
-  background-size: cover;
-}
-
+/* -------------------------
+   3) LOGIN PAGE (center card)
+   ------------------------- */
+/* Use your banner as full-bleed background */
 .loginPage {
+  background:
+    url("https://cdn.jsdelivr.net/gh/TinySprite-Studios/tss-jellyfin-skin@main/assets/tsstudios_banner.png")
+    no-repeat center center fixed !important;
   background-size: cover !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+
+  /* center the content vertically/horizontally */
   min-height: 100vh !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 6vh 20px !important;
 }
 
-/* Centered login form container */
+/* Constrain the form inside a neat card */
 .loginPage .pageContainer {
-  background: rgba(10, 10, 10, 0.8) !important; /* semi-transparent black */
-  border-radius: 12px !important;
-  padding: 40px 50px !important;
-  box-shadow: 0 0 30px var(--glow) !important;
-  max-width: 400px !important;
   width: 100% !important;
+  max-width: 480px !important;
+  padding: 40px 44px !important;
+  background: rgba(10,10,10,0.82) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 14px !important;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 0 28px -6px var(--glow), 0 12px 36px -18px #000 !important;
   text-align: center !important;
 }
 
-/* Logo at the top of the form */
+/* Logo above the form */
 .loginPage .pageContainer::before {
-  content: "" !important;
-  display: block !important;
-  width: 120px !important;
-  height: 120px !important;
-  margin: 0 auto 20px auto !important;
-  background: url("https://cdn.jsdelivr.net/gh/TinySprite-Studios/tss-jellyfin-skin@main/assets/tss_red_80.png") 
-              no-repeat center center / contain !important;
+  content: ""; display: block; width: 120px; height: 120px;
+  margin: 0 auto 20px auto;
+  background: url("https://cdn.jsdelivr.net/gh/TinySprite-Studios/tss-jellyfin-skin@main/assets/tss_red_80.png")
+              no-repeat center/contain;
 }
 
-/* Input styling */
+/* Inputs & buttons inside the card */
 .loginPage .emby-input {
   background: #111 !important;
   border: 1px solid var(--accent) !important;
@@ -121,79 +186,41 @@
   color: var(--text) !important;
   font-size: 15px !important;
 }
-
-/* Buttons */
 .loginPage .emby-button {
   background: var(--accent) !important;
-  color: #fff !important;
+  color: var(--text) !important;
   border: none !important;
   border-radius: 6px !important;
   padding: 12px 18px !important;
-  font-size: 16px !important;
-  font-weight: bold !important;
+  font-weight: 700 !important;
   box-shadow: 0 6px 20px -4px var(--glow) !important;
-  transition: all 0.2s ease-in-out !important;
+  transition: all .2s ease-in-out !important;
 }
 .loginPage .emby-button:hover {
   background: var(--glow) !important;
   box-shadow: 0 10px 25px -5px var(--glow) !important;
   transform: translateY(-2px) !important;
 }
+/* Hide default “Please sign in” title (we keep the logo focal) */
+.loginPage .pageTitle { display: none !important; }
 
-/* Hide the default page title */
-.loginPage .pageTitle {
-  display: none !important;
-}
+/* -------------------------
+   4) Cast & crew tweaks
+   ------------------------- */
+/* Shrink and square (or round) cast thumbnails */
+#castContent .card.overflowPortraitCard.personCard.card-hoverable.card-withuserdata {width: 4.2cm !important; font-size: 90% !important;}
+#castContent .card.overflowPortraitCard.personCard.card-withuserdata {width: 4.2cm !important; font-size: 90% !important;}
 
+/* Correct image aspect ratio behavior, set border-radius to zero for square tiles */
+#castContent .cardContent-button.cardImageContainer.coveredImage.cardContent.cardContent-shadow.itemAction.lazy {background-size: cover; !important; border-radius: 2.5cm;}
+#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground1.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
+#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground2.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
+#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground3.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
+#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground4.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
+#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground5.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
+#castContent .cardScalable {width: 3.8cm !important; height: 3.8cm !important; border-radius: 2.5cm;}
+#castContent .cardOverlayContainer.itemAction {border-radius: 2.5cm;}
 
-/* 4) APPLY VARS */
-html, body, .mainDrawer, .layout-desktop,
-.backgroundContainer, .pageContainer {
-  background-color: var(--bg) !important;
-  color: var(--text) !important;
-}
-.card, .paperList, .detailPageWrapper, .dialog,
-.emby-select-withcolor, .emby-input, .emby-textarea {
-  background-color: var(--panel) !important;
-  color: var(--text) !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
-}
-
-.siteHeader, .headerTabs, .skinHeader, .mainDrawer {
-  background-color: var(--panel) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
-}
-
-a, .button-link, .emby-button.linkbutton, .listItemBodyText a { color: var(--text) !important; }
-a:hover { color: var(--glow) !important; }
-
-/* 5) GLOW UNDER tabs/buttons/cards */
-.headerTabs .emby-tab { position: relative !important; background: transparent !important; box-shadow: none !important; }
-.headerTabs .emby-tab::after {
-  content: ""; position: absolute !important;
-  left: 12px; right: 12px; bottom: -2px; height: 3px;
-  background: var(--accent) !important; border-radius: 3px; opacity: 0;
-  transition: opacity .15s ease;
-  box-shadow: 0 8px 16px -4px var(--glow) !important; /* downwards glow */
-}
-.headerTabs .emby-tab:hover::after,
-.headerTabs .emby-tab.emby-tab-active::after { opacity: 1; }
-
-.emby-button, .button-flat, .paper-icon-button-light { box-shadow: none !important; }
-.emby-button:hover, .button-flat:hover, .paper-icon-button-light:hover {
-  box-shadow: 0 10px 18px -6px var(--glow) !important;
-  transform: translateY(-1px) !important;
-}
-.visualCardBox:hover, .itemCard:hover, .cardBox:hover {
-  box-shadow: 0 14px 22px -10px var(--glow) !important;
-  transform: translateY(-1px) !important;
-}
-
-/* 6) PROGRESS / SLIDERS / MISC */
-.mdl-slider__background-lower, .progressbarForeground { background-color: var(--glow) !important; }
-.searchInput, .emby-input, .emby-textarea { background: #111 !important; color: var(--text) !important; }
-.snackbar { background: var(--panel) !important; color: var(--text) !important; }
-
-/* 7) LOGIN PAGE TITLE */
-.loginPage .pageTitle { font-size: 0 !important; }
-.loginPage .pageTitle::after { content: "TSS" !important; font-size: 28px !important; }
+/* Center the mouseover buttons */
+#castContent .cardOverlayButton-br {bottom: 4%; right: 15%; width: 70%;}
+#castContent .cardOverlayButton.cardOverlayButton-hover.itemAction.paper-icon-button-light {margin:auto;}
