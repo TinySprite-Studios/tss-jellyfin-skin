@@ -76,16 +76,11 @@
    ============================== */
 
 /* Full page background */
-.backdropImage {
-  display: none;
-}
-
-.backgroundContainer {
-  background-color: rgba(0, 0, 0, 0);
-  background-image: url('https://cdn.jsdelivr.net/gh/TinySprite-Studios/tss-jellyfin-skin@main/assets/tsstudios_banner.png');
-  filter: blur(10px);
+#loginPage {
+  background: url('https://i.ytimg.com/vi/avCWDDox1nE/maxresdefault.jpg');
   background-size: cover;
 }
+
 .loginPage {
   background-size: cover !important;
   display: flex !important;
