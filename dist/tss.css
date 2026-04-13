@@ -70,6 +70,34 @@ html, body, .mainDrawer, .layout-desktop,
   color: var(--text) !important;
 }
 
+.backgroundContainer {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.backgroundContainer::before {
+  content: "" !important;
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  opacity: 0.08 !important;
+  background:
+    radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--glow) 28%, transparent) 0, transparent 34%),
+    radial-gradient(circle at 82% 78%, color-mix(in srgb, var(--accent) 24%, transparent) 0, transparent 30%),
+    url("https://cdn.jsdelivr.net/gh/TinySprite-Studios/tss-jellyfin-skin@main/assets/tss_red.png")
+    center 16% / min(42vw, 520px) auto no-repeat !important;
+  filter: blur(0.4px);
+  z-index: 0 !important;
+}
+
+.pageContainer,
+.skinHeader,
+.siteHeader,
+.mainDrawer {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
 /* Panels, inputs, dialogs */
 .card, .paperList, .detailPageWrapper, .dialog,
 .emby-select-withcolor, .emby-input, .emby-textarea {
@@ -122,6 +150,38 @@ a:hover { color: var(--glow) !important; }
   box-shadow: var(--card-shadow) !important;
 }
 
+.cardScalable::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  background:
+    linear-gradient(115deg,
+      transparent 0%,
+      transparent 34%,
+      rgba(255,255,255,0.03) 44%,
+      color-mix(in srgb, var(--glow) 16%, white 12%) 50%,
+      rgba(255,255,255,0.03) 56%,
+      transparent 66%,
+      transparent 100%) !important;
+  transform: translateX(-135%) skewX(-14deg) !important;
+  transition: opacity .22s ease !important;
+}
+
+.cardScalable::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+  opacity: 0 !important;
+  background:
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--glow) 14%, transparent), transparent 58%),
+    linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%) !important;
+  transition: opacity .2s ease !important;
+}
+
 .cardOverlayContainer {
   border-radius: inherit !important;
 }
@@ -158,6 +218,30 @@ a:hover { color: var(--glow) !important; }
     0 18px 28px -18px color-mix(in srgb, var(--glow) 55%, transparent) !important;
 }
 
+.cardScalable:hover::before,
+.cardScalable:focus-within::before {
+  opacity: 0.95 !important;
+  animation: tssCardSweep 900ms ease forwards;
+}
+
+.cardScalable:hover::after,
+.cardScalable:focus-within::after {
+  opacity: 1 !important;
+}
+
+.cardText-first,
+.cardTextCentered {
+  transition: transform .18s ease, text-shadow .18s ease, color .18s ease !important;
+}
+
+.cardBox:hover .cardText-first,
+.cardBox:hover .cardTextCentered,
+.cardBox:focus-within .cardText-first,
+.cardBox:focus-within .cardTextCentered {
+  transform: translateY(-1px) !important;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--glow) 28%, transparent) !important;
+}
+
 .cardOverlayFab-primary {
   background: linear-gradient(135deg, var(--accent), var(--sheen)) !important;
   color: #fff !important;
@@ -168,6 +252,46 @@ a:hover { color: var(--glow) !important; }
   color: var(--text) !important;
   letter-spacing: 0.02em !important;
   text-shadow: 0 2px 16px rgba(0,0,0,0.45) !important;
+  animation: tssHeaderPulse 5.5s ease-in-out infinite !important;
+}
+
+/* Shelf navigation buttons */
+.emby-scrollbuttons,
+.scrollbuttoncontainer,
+.itemsContainer + .emby-scrollbuttons {
+  margin-bottom: 12px !important;
+}
+
+.emby-scrollbuttons .paper-icon-button-light,
+.scrollbuttoncontainer .paper-icon-button-light,
+.scrollbuttoncontainer .button-flat {
+  transform: translateY(-12px) !important;
+}
+
+.emby-scrollbuttons .paper-icon-button-light:hover,
+.scrollbuttoncontainer .paper-icon-button-light:hover,
+.scrollbuttoncontainer .button-flat:hover {
+  transform: translateY(-13px) !important;
+}
+
+@keyframes tssCardSweep {
+  from {
+    transform: translateX(-135%) skewX(-14deg);
+  }
+  to {
+    transform: translateX(135%) skewX(-14deg);
+  }
+}
+
+@keyframes tssHeaderPulse {
+  0%, 100% {
+    text-shadow: 0 2px 16px rgba(0,0,0,0.45);
+  }
+  50% {
+    text-shadow:
+      0 2px 16px rgba(0,0,0,0.45),
+      0 0 18px color-mix(in srgb, var(--glow) 18%, transparent);
+  }
 }
 
 /* Tabs underline glow (under, not above) */
