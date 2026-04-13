@@ -326,7 +326,7 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
   border-radius: 18px !important;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0) 22%),
-    linear-gradient(180deg, rgba(7,10,18,0) 48%, rgba(7,10,18,0.92) 100%),
+    linear-gradient(180deg, rgba(7,10,18,0) 58%, rgba(7,10,18,0.68) 100%),
     var(--panel) !important;
   border: 1px solid rgba(255,255,255,0.08) !important;
   box-shadow: 0 16px 30px -22px rgba(0,0,0,0.96) !important;
@@ -340,12 +340,21 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
 #castContent .cardText {
   min-height: 4.9rem !important;
   padding: 12px 12px 14px !important;
-  background:
-    linear-gradient(180deg, rgba(12,16,24,0), rgba(12,16,24,0.76) 18%, rgba(12,16,24,0.96) 100%) !important;
+  background: transparent !important;
+}
+
+#castContent .cardTextContainer,
+#castContent .cardFooter,
+#castContent .cardTextButton {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 #castContent .cardText-first,
-#castContent .cardTextCentered {
+#castContent .cardTextCentered,
+#castContent .cardText-first a,
+#castContent .cardTextCentered a {
   color: #F8FBFF !important;
   font-size: 0.98rem !important;
   font-weight: 700 !important;
@@ -353,13 +362,25 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
   white-space: normal !important;
   overflow: visible !important;
   text-overflow: initial !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 #castContent .cardText-secondary,
-#castContent .cardText-secondaryCentered {
+#castContent .cardText-secondaryCentered,
+#castContent .cardText-secondary a,
+#castContent .cardText-secondaryCentered a {
   color: rgba(214,231,255,0.78) !important;
   line-height: 1.35 !important;
   white-space: normal !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#castContent .cardText-first:not(:empty),
+#castContent .cardTextCentered:not(:empty) {
+  margin-top: 0.35rem !important;
 }
 
 #castContent .cardOverlayContainer.itemAction {
