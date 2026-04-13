@@ -28,6 +28,11 @@
   --card-shadow: 0 14px 28px -20px rgba(0,0,0,0.95);
 }
 
+* {
+    scrollbar-color: var(--red-accent) var(--red-panel);
+    scrollbar-width: thin
+}
+
 /* Page-scoped variables */
 .homePage {
   --bg: var(--red-bg);
@@ -281,7 +286,7 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
 .loginPage .pageTitle { display: none !important; }
 
 /* -------------------------
-   4) Shelf + cast card cleanup
+   4) People shelf styling
    ------------------------- */
 .portraitCard,
 .squareCard,
@@ -296,33 +301,40 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
   background-color: var(--panel) !important;
 }
 
-#castContent .itemsContainer {
+#castContent .itemsContainer,
+.peopleItemsContainer {
   gap: 16px !important;
   align-items: stretch !important;
 }
 
 #castContent .card.overflowPortraitCard.personCard.card-hoverable.card-withuserdata,
-#castContent .card.overflowPortraitCard.personCard.card-withuserdata {
+#castContent .card.overflowPortraitCard.personCard.card-withuserdata,
+.peopleItemsContainer .card.overflowPortraitCard.personCard.card-hoverable.card-withuserdata,
+.peopleItemsContainer .card.overflowPortraitCard.personCard.card-withuserdata {
   width: 10.5rem !important;
   min-width: 10.5rem !important;
   margin: 0 !important;
   font-size: 0.95rem !important;
 }
 
-#castContent .cardScalable {
+#castContent .cardScalable,
+.peopleItemsContainer .cardScalable {
   width: 100% !important;
   height: auto !important;
   border-radius: 18px !important;
 }
 
 #castContent .cardImageContainer,
-#castContent .cardContent-button.cardImageContainer {
+#castContent .cardContent-button.cardImageContainer,
+.peopleItemsContainer .cardImageContainer,
+.peopleItemsContainer .cardContent-button.cardImageContainer {
   border-radius: 18px 18px 0 0 !important;
   background-size: cover !important;
   background-position: center top !important;
 }
 
-#castContent .cardBox {
+#castContent .cardBox,
+.peopleItemsContainer .cardBox {
   border-radius: 18px !important;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0) 22%),
@@ -333,11 +345,13 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
   overflow: hidden !important;
 }
 
-#castContent .cardPadder {
+#castContent .cardPadder,
+.peopleItemsContainer .cardPadder {
   background: transparent !important;
 }
 
-#castContent .cardText {
+#castContent .cardText,
+.peopleItemsContainer .cardText {
   min-height: 4.9rem !important;
   padding: 12px 12px 14px !important;
   background: transparent !important;
@@ -345,7 +359,10 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
 
 #castContent .cardTextContainer,
 #castContent .cardFooter,
-#castContent .cardTextButton {
+#castContent .cardTextButton,
+.peopleItemsContainer .cardTextContainer,
+.peopleItemsContainer .cardFooter,
+.peopleItemsContainer .cardTextButton {
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
@@ -354,7 +371,11 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
 #castContent .cardText-first,
 #castContent .cardTextCentered,
 #castContent .cardText-first a,
-#castContent .cardTextCentered a {
+#castContent .cardTextCentered a,
+.peopleItemsContainer .cardText-first,
+.peopleItemsContainer .cardTextCentered,
+.peopleItemsContainer .cardText-first a,
+.peopleItemsContainer .cardTextCentered a {
   color: #F8FBFF !important;
   font-size: 0.98rem !important;
   font-weight: 700 !important;
@@ -370,7 +391,11 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
 #castContent .cardText-secondary,
 #castContent .cardText-secondaryCentered,
 #castContent .cardText-secondary a,
-#castContent .cardText-secondaryCentered a {
+#castContent .cardText-secondaryCentered a,
+.peopleItemsContainer .cardText-secondary,
+.peopleItemsContainer .cardText-secondaryCentered,
+.peopleItemsContainer .cardText-secondary a,
+.peopleItemsContainer .cardText-secondaryCentered a {
   color: rgba(214,231,255,0.78) !important;
   line-height: 1.35 !important;
   white-space: normal !important;
@@ -379,21 +404,26 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
 }
 
 #castContent .cardText-first:not(:empty),
-#castContent .cardTextCentered:not(:empty) {
+#castContent .cardTextCentered:not(:empty),
+.peopleItemsContainer .cardText-first:not(:empty),
+.peopleItemsContainer .cardTextCentered:not(:empty) {
   margin-top: 0.35rem !important;
 }
 
-#castContent .cardOverlayContainer.itemAction {
+#castContent .cardOverlayContainer.itemAction,
+.peopleItemsContainer .cardOverlayContainer.itemAction {
   border-radius: 18px !important;
 }
 
-#castContent .cardOverlayButton-br {
+#castContent .cardOverlayButton-br,
+.peopleItemsContainer .cardOverlayButton-br {
   bottom: 10px !important;
   right: 10px !important;
   width: auto !important;
 }
 
-#castContent .cardOverlayButton.cardOverlayButton-hover.itemAction.paper-icon-button-light {
+#castContent .cardOverlayButton.cardOverlayButton-hover.itemAction.paper-icon-button-light,
+.peopleItemsContainer .cardOverlayButton.cardOverlayButton-hover.itemAction.paper-icon-button-light {
   margin: 0 !important;
   background: rgba(9,12,20,0.72) !important;
   backdrop-filter: blur(4px);
