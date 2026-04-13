@@ -92,10 +92,21 @@ html, body, .mainDrawer, .layout-desktop,
 
 .pageContainer,
 .skinHeader,
-.siteHeader,
-.mainDrawer {
+.siteHeader {
   position: relative !important;
   z-index: 1 !important;
+}
+
+.mainDrawer {
+  position: fixed !important;
+  z-index: 1100 !important;
+}
+
+.dialog,
+.focuscontainer-dialog,
+.dashboardDocument .mainDrawer,
+.mainDrawer-open {
+  z-index: 1101 !important;
 }
 
 /* Panels, inputs, dialogs */
