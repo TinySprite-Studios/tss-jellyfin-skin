@@ -13,14 +13,19 @@
   --red-panel:  #1C1C1C;
   --red-accent: #A60000;
   --red-glow:   #FF1A1A;
+  --red-sheen:  #FF5A5A;
 
   /* Blue theme */
   --blue-bg:     #0A0F1F;
   --blue-panel:  #1C1F26;
   --blue-accent: #005B96;
   --blue-glow:   #00E5FF;
+  --blue-sheen:  #7CEBFF;
 
   --text: #FFFFFF;
+  --muted-text: rgba(255,255,255,0.72);
+  --card-radius: 16px;
+  --card-shadow: 0 14px 28px -20px rgba(0,0,0,0.95);
 }
 
 /* Page-scoped variables */
@@ -29,6 +34,7 @@
   --panel: var(--red-panel);
   --accent: var(--red-accent);
   --glow: var(--red-glow);
+  --sheen: var(--red-sheen);
   --text: #FFFFFF;
 }
 .detailPage, .itemDetailPage {
@@ -36,6 +42,7 @@
   --panel: var(--blue-panel);
   --accent: var(--blue-accent);
   --glow: var(--blue-glow);
+  --sheen: var(--blue-sheen);
   --text: #FFFFFF;
 }
 /* Fallback if a page has no class */
@@ -44,6 +51,7 @@
   --panel: var(--red-panel);
   --accent: var(--red-accent);
   --glow: var(--red-glow);
+  --sheen: var(--red-sheen);
 }
 
 /* -------------------------
@@ -87,6 +95,74 @@ a:hover { color: var(--glow) !important; }
 .visualCardBox:hover, .itemCard:hover, .cardBox:hover {
   box-shadow: 0 14px 22px -10px var(--glow) !important;
   transform: translateY(-1px) !important;
+}
+
+/* TinySprite card language */
+.itemsContainer {
+  gap: 14px !important;
+}
+
+.cardBox {
+  margin: 0 !important;
+}
+
+.cardScalable {
+  overflow: hidden !important;
+  border-radius: var(--card-radius) !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0) 22%),
+    linear-gradient(180deg, rgba(0,0,0,0) 52%, rgba(6,8,14,0.88) 100%),
+    var(--panel) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+.cardOverlayContainer {
+  border-radius: inherit !important;
+}
+
+.cardPadder {
+  background: transparent !important;
+}
+
+.cardText {
+  padding: 12px 10px 4px !important;
+}
+
+.cardText-first,
+.cardTextCentered,
+.cardTextActionButton,
+.itemAction .cardText {
+  color: var(--text) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.65) !important;
+}
+
+.cardText-secondary,
+.cardText-secondaryCentered,
+.secondaryText {
+  color: var(--muted-text) !important;
+}
+
+.cardScalable:hover {
+  border-color: color-mix(in srgb, var(--accent) 60%, white 15%) !important;
+  box-shadow:
+    0 22px 38px -24px rgba(0,0,0,0.98),
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 18px 28px -18px color-mix(in srgb, var(--glow) 55%, transparent) !important;
+}
+
+.cardOverlayFab-primary {
+  background: linear-gradient(135deg, var(--accent), var(--sheen)) !important;
+  color: #fff !important;
+}
+
+.sectionTitle,
+.sectionTitleTextButton {
+  color: var(--text) !important;
+  letter-spacing: 0.02em !important;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.45) !important;
 }
 
 /* Tabs underline glow (under, not above) */
@@ -205,22 +281,99 @@ a[href*="dashboard/settings"] .MultilistItemIcon-root img {
 .loginPage .pageTitle { display: none !important; }
 
 /* -------------------------
-   4) Cast & crew tweaks
+   4) Shelf + cast card cleanup
    ------------------------- */
-/* Shrink and square (or round) cast thumbnails */
-#castContent .card.overflowPortraitCard.personCard.card-hoverable.card-withuserdata {width: 4.2cm !important; font-size: 90% !important;}
-#castContent .card.overflowPortraitCard.personCard.card-withuserdata {width: 4.2cm !important; font-size: 90% !important;}
+.portraitCard,
+.squareCard,
+.backdropCard,
+.overflowPortraitCard {
+  margin-right: 0 !important;
+}
 
-/* Correct image aspect ratio behavior, set border-radius to zero for square tiles */
-#castContent .cardContent-button.cardImageContainer.coveredImage.cardContent.cardContent-shadow.itemAction.lazy {background-size: cover; !important; border-radius: 2.5cm;}
-#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground1.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
-#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground2.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
-#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground3.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
-#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground4.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
-#castContent .cardContent-button.cardImageContainer.coveredImage.defaultCardBackground.defaultCardBackground5.cardContent.cardContent-shadow.itemAction {background-size: cover; !important; border-radius: 2.5cm;}
-#castContent .cardScalable {width: 3.8cm !important; height: 3.8cm !important; border-radius: 2.5cm;}
-#castContent .cardOverlayContainer.itemAction {border-radius: 2.5cm;}
+.portraitCard .cardScalable,
+.squareCard .cardScalable,
+.overflowPortraitCard .cardScalable {
+  background-color: var(--panel) !important;
+}
 
-/* Center the mouseover buttons */
-#castContent .cardOverlayButton-br {bottom: 4%; right: 15%; width: 70%;}
-#castContent .cardOverlayButton.cardOverlayButton-hover.itemAction.paper-icon-button-light {margin:auto;}
+#castContent .itemsContainer {
+  gap: 16px !important;
+  align-items: stretch !important;
+}
+
+#castContent .card.overflowPortraitCard.personCard.card-hoverable.card-withuserdata,
+#castContent .card.overflowPortraitCard.personCard.card-withuserdata {
+  width: 10.5rem !important;
+  min-width: 10.5rem !important;
+  margin: 0 !important;
+  font-size: 0.95rem !important;
+}
+
+#castContent .cardScalable {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 18px !important;
+}
+
+#castContent .cardImageContainer,
+#castContent .cardContent-button.cardImageContainer {
+  border-radius: 18px 18px 0 0 !important;
+  background-size: cover !important;
+  background-position: center top !important;
+}
+
+#castContent .cardBox {
+  border-radius: 18px !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0) 22%),
+    linear-gradient(180deg, rgba(7,10,18,0) 48%, rgba(7,10,18,0.92) 100%),
+    var(--panel) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 16px 30px -22px rgba(0,0,0,0.96) !important;
+  overflow: hidden !important;
+}
+
+#castContent .cardPadder {
+  background: transparent !important;
+}
+
+#castContent .cardText {
+  min-height: 4.9rem !important;
+  padding: 12px 12px 14px !important;
+  background:
+    linear-gradient(180deg, rgba(12,16,24,0), rgba(12,16,24,0.76) 18%, rgba(12,16,24,0.96) 100%) !important;
+}
+
+#castContent .cardText-first,
+#castContent .cardTextCentered {
+  color: #F8FBFF !important;
+  font-size: 0.98rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: initial !important;
+}
+
+#castContent .cardText-secondary,
+#castContent .cardText-secondaryCentered {
+  color: rgba(214,231,255,0.78) !important;
+  line-height: 1.35 !important;
+  white-space: normal !important;
+}
+
+#castContent .cardOverlayContainer.itemAction {
+  border-radius: 18px !important;
+}
+
+#castContent .cardOverlayButton-br {
+  bottom: 10px !important;
+  right: 10px !important;
+  width: auto !important;
+}
+
+#castContent .cardOverlayButton.cardOverlayButton-hover.itemAction.paper-icon-button-light {
+  margin: 0 !important;
+  background: rgba(9,12,20,0.72) !important;
+  backdrop-filter: blur(4px);
+}
